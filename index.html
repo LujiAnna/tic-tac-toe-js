@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tic Tac Toe - js</title>
+        <style>
+button {
+  height:10vh;
+  width: 10vw;
+}
+        </style>
+    </head>
+
+    <body style="text-align: center;">
+      <!-- Player O will start and board will update player -->
+        <h1 id = "header">Player <label id = 'player_number'>0</label></h1>
+
+        <table align="center">
+            <tr id = "row1">
+                <td><button id = "11" onclick="clicked('11')" ></button></td>
+                <td><button id = "12" onclick="clicked('12')" ></button></td>
+                <td><button id = "13" onclick="clicked('13')" ></button></td>
+            </tr>
+            <tr id = "row2">
+                <td><button id = "21" onclick="clicked('21')"></button></td>
+                <td><button id = "22" onclick="clicked('22')" ></button></td>
+                <td><button id = "23" onclick="clicked('23')" ></button></td>
+            </tr>
+            <tr id = "row3">
+                <td><button id = "31" onclick="clicked('31')"></button></td>
+                <td><button id = "32" onclick="clicked('32')"></button></td>
+                <td><button id = "33" onclick="clicked('33')"></button></td>
+            </tr>
+        </table>
+        <button onclick="resetGame()" style = 'width: 100px'>Reset/Restart</button>
+        </body>
+
+        <script>
+         
+          // method1: clicked
+          function clicked(id) {
+       
+            // get current player
+            var current_player = document.getElementById("player_number").innerHTML;
+            // check if cell is not empty
+            if(document.getElementById(id).innerHTML){
+                    // do nothing
+                    return
+                }
+
+            // place the value of current player on board
+            document.getElementById(id).innerHTML= current_player;
+            // check if this is a winning move 
+            // a. if win, give msg
+                 var win = checkWin()
+                if(win == "1") {
+                    document.getElementById("header").innerHTML = "Player " + current_player + " Won";
+                    return
+                }
+                // b.if Draw give msg
+                else if (win == "2") {
+                    document.getElementById("header").innerHTML = "Game Draw";
+                    return
+                }
+            // switch player's turn/move heading, and when its done, then it's also switch on board
+            if(current_player == "0") {
+                    document.getElementById("player_number").innerHTML = "X"
+                }
+             else {
+                    document.getElementById("player_number").innerHTML = "0"
+             }   
+               }
+
+          // LOGIC - method3: checkWin
+           function checkWin() {
+            // fetch values of all cells
+                var _11 = document.getElementById("11").innerHTML
+                var _12 = document.getElementById("12").innerHTML
+                var _13 = document.getElementById("13").innerHTML
+                var _21 = document.getElementById("21").innerHTML
+                var _22 = document.getElementById("22").innerHTML
+                var _23 = document.getElementById("23").innerHTML
+                var _31 = document.getElementById("31").innerHTML
+                var _32 = document.getElementById("32").innerHTML
+                var _33 = document.getElementById("33").innerHTML
+
+                // * if true, check 3 winning possibilities for this player. If false then skip
+                if((_11 && _11 == _12 && _12 == _13) || (_21 && _21 == _22 && _22 == _23) || (_31 && _31 == _32 && _32 == _33)
+                || (_11 && _11 == _21 && _21 == _31) || (_12 && _12 == _22 && _22 == _32) || (_13 && _13 == _23 && _21 == _33)
+                || (_11 && _11 == _22 && _22 == _33) || (_31 && _31 == _22 && _22 == _13)
+                ) {
+                    return "1" //if win
+                }
+                else if(_11 && _12 && _13 && _21 && _22 && _23 && _31 && _32 && _33 ) {
+                    return "2" //if draw
+                }
+                            }
+
+          // method2: reset/restart
+          // reset player O will always start
+         function resetGame() {
+                document.getElementById("header").innerHTML="Player <label id = 'player_number'>0</label>"
+                document.getElementById("11").innerHTML = null
+                document.getElementById("12").innerHTML = null
+                document.getElementById("13").innerHTML = null
+                document.getElementById("21").innerHTML = null
+                document.getElementById("22").innerHTML = null
+                document.getElementById("23").innerHTML = null
+                document.getElementById("31").innerHTML = null
+                document.getElementById("32").innerHTML = null
+                document.getElementById("33").innerHTML = null
+            }
+        </script>
+</html>
